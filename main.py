@@ -60,10 +60,10 @@ def process_link(choice, link, name_template, total_eps):
             return
 
         # Sort based on user's choice
-        if choice == "Biggest Size":
+        if choice == "Smallest Size":
             c_h2_divs.sort(
-                key=lambda div: convert_size(div.xpath('.//b/text()')[1]) if len(div.xpath('.//b/text()')) > 1 else 0)
-        elif choice == "Lowest Size":
+                key=lambda div: convert_size(div.xpath('.//b/text()')[1]) if len(div.xpath('.//b/text()')) > 1 else float('inf'), reverse=True)
+        elif choice == "Lowest Size":  # kept for compatibility
             c_h2_divs.sort(
                 key=lambda div: convert_size(div.xpath('.//b/text()')[1]) if len(div.xpath('.//b/text()')) > 1 else float('inf'), reverse=True)
         elif choice == "Least Downloaded":
@@ -177,7 +177,7 @@ def okay(URL):
 
 
 
-    selected = inquirer.list_input("Select the download type", choices=["Biggest Size", "Lowest Size", "Most Downloaded", "Least Downloaded", "Latest", "Oldest"])
+    selected = inquirer.list_input("Select the download type", choices=["Smallest Size", "Most Downloaded", "Least Downloaded", "Latest", "Oldest"])
 
     custom_name = input("Define custom names for the files? (y/n) ").lower()
     if custom_name == "y" or custom_name == "yes":
